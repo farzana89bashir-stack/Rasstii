@@ -69,76 +69,10 @@
   <form id="quizForm">
     <h3>🧠 Part A – Multiple Choice Questions (1 mark each)</h3>
 
-    <div class="question">1. What does AI mainly try to do?<br>
-      <input type="radio" name="q1" value="a"> a) Build physical robots only<br>
-      <input type="radio" name="q1" value="b"> b) Create smart machines that can think and learn<br>
-      <input type="radio" name="q1" value="c"> c) Make video games faster<br>
-      <input type="radio" name="q1" value="d"> d) Replace electricity
-    </div>
+    <!-- MCQs omitted here for brevity: same as your original code -->
+    <!-- ... Include all 10 MCQ questions as before -->
 
-    <div class="question">2. Example of AI used daily?<br>
-      <input type="radio" name="q2" value="a"> a) A ceiling fan<br>
-      <input type="radio" name="q2" value="b"> b) A wall clock<br>
-      <input type="radio" name="q2" value="c"> c) Voice assistant like Alexa or Siri<br>
-      <input type="radio" name="q2" value="d"> d) Torchlight
-    </div>
-
-    <div class="question">3. Which is NOT an AI application?<br>
-      <input type="radio" name="q3" value="a"> a) Self-driving cars<br>
-      <input type="radio" name="q3" value="b"> b) Smart home assistants<br>
-      <input type="radio" name="q3" value="c"> c) Weather prediction<br>
-      <input type="radio" name="q3" value="d"> d) Playing hide and seek
-    </div>
-
-    <div class="question">4. Why should students learn AI?<br>
-      <input type="radio" name="q4" value="a"> a) It’s a video game<br>
-      <input type="radio" name="q4" value="b"> b) It helps in painting only<br>
-      <input type="radio" name="q4" value="c"> c) To understand and create future technologies<br>
-      <input type="radio" name="q4" value="d"> d) Because it's a magic trick
-    </div>
-
-    <div class="question">5. What does AI use to learn?<br>
-      <input type="radio" name="q5" value="a"> a) Fairy tales<br>
-      <input type="radio" name="q5" value="b"> b) Data and patterns<br>
-      <input type="radio" name="q5" value="c"> c) Magic spells<br>
-      <input type="radio" name="q5" value="d"> d) Wind power
-    </div>
-
-    <div class="question">6. Year AI began as study?<br>
-      <input type="radio" name="q6" value="a"> a) 1980<br>
-      <input type="radio" name="q6" value="b"> b) 1956<br>
-      <input type="radio" name="q6" value="c"> c) 2001<br>
-      <input type="radio" name="q6" value="d"> d) 1945
-    </div>
-
-    <div class="question">7. What makes AI smarter?<br>
-      <input type="radio" name="q7" value="a"> a) Luck<br>
-      <input type="radio" name="q7" value="b"> b) Data<br>
-      <input type="radio" name="q7" value="c"> c) Chalk<br>
-      <input type="radio" name="q7" value="d"> d) Batteries
-    </div>
-
-    <div class="question">8. What is AI?<br>
-      <input type="radio" name="q8" value="a"> a) Making machines dance<br>
-      <input type="radio" name="q8" value="b"> b) Making machines think and act like humans<br>
-      <input type="radio" name="q8" value="c"> c) Painting robots<br>
-      <input type="radio" name="q8" value="d"> d) Just coding
-    </div>
-
-    <div class="question">9. AI in healthcare:<br>
-      <input type="radio" name="q9" value="a"> a) Makes medicine colorful<br>
-      <input type="radio" name="q9" value="b"> b) Helps clean hospitals<br>
-      <input type="radio" name="q9" value="c"> c) Helps diagnose diseases<br>
-      <input type="radio" name="q9" value="d"> d) Replaces doctors
-    </div>
-
-    <div class="question">10. After data is given to AI:<br>
-      <input type="radio" name="q10" value="a"> a) It sleeps<br>
-      <input type="radio" name="q10" value="b"> b) It ignores it<br>
-      <input type="radio" name="q10" value="c"> c) It processes the data and learns from it<br>
-      <input type="radio" name="q10" value="d"> d) It eats the data
-    </div>
-
+    <!-- Same as before: short answer questions -->
     <h3>✍️ Part B – Brief Answer Questions</h3>
 
     <div class="question">
@@ -199,6 +133,8 @@
       q1: "b", q2: "c", q3: "d", q4: "c", q5: "b",
       q6: "b", q7: "b", q8: "b", q9: "c", q10: "c"
     };
+
+    // Part A: MCQs
     for (let q in correct) {
       const selected = document.querySelector(`input[name="${q}"]:checked`);
       if (selected && selected.value === correct[q]) {
@@ -206,15 +142,39 @@
       }
     }
 
+    // Part B: Short Answer (keyword matching)
+    const form = document.getElementById("quizForm");
+    const bAnswers = [
+      { keywords: ["smart", "think", "learn"], input: form.b1.value.toLowerCase() },
+      { keywords: ["siri", "alexa", "google", "assistant"], input: form.b2.value.toLowerCase() },
+      { keywords: ["healthcare", "education", "transport", "security", "banking"], input: form.b3.value.toLowerCase() },
+      { keywords: ["future", "technology", "important", "skills"], input: form.b4.value.toLowerCase() },
+      { keywords: ["1956", "dartmouth"], input: form.b5.value.toLowerCase() }
+    ];
+
+    bAnswers.forEach(answer => {
+      const matched = answer.keywords.some(word => answer.input.includes(word));
+      if (matched) score++;
+    });
+
+    // Part C: Long Answer
+    const c1 = form.c1.value.toLowerCase();
+    const cKeywords = ["data", "learn", "decision", "example", "training"];
+    const cMatch = cKeywords.filter(word => c1.includes(word)).length;
+    if (cMatch >= 3) score += 2;
+
+    // Result display
     document.getElementById('page2').classList.add('hidden');
     document.getElementById('page3').classList.remove('hidden');
 
     const resultText = document.getElementById('resultText');
     const emoji = document.getElementById('emoji');
-    resultText.textContent = score >= 7
-      ? `Good Job! You scored ${score}/10 in Part A`
-      : `Try Again! You scored ${score}/10 in Part A`;
-    emoji.textContent = score >= 7 ? "😊" : "😕";
+    resultText.textContent = score >= 12
+      ? `Excellent! You scored ${score}/17`
+      : score >= 9
+      ? `Good Effort! You scored ${score}/17`
+      : `Keep Practicing! You scored ${score}/17`;
+    emoji.textContent = score >= 12 ? "🌟" : score >= 9 ? "😊" : "😕";
   }
 
   function downloadResult() {
